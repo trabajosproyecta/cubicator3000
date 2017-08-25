@@ -1,0 +1,20 @@
+El codigo de optimizer.py está escrito en python 3.5 y necesita que los archivos ampl.exe, cplex.exe y cplex1263.dll
+permanezcan en la misma carpeta.
+
+Para usarlo debe haber en la misma carpeta un archivo excel con el nombre cubicacion.xlsx
+que tenga los cortes que necesita cada proyecto que se quiera optimizar, siguiendo el formato
+que ya está. No importa si se repiten cortes. La columna Etapa es solo para ayudar a escribir
+los datos y el optimizador no la toma en cuenta.
+
+Se requieren las librerias xlrd, xlwt y PIL, que pueden instalarse por pip.
+
+El optimizador retorna 3 cosas: Un archivo .txt con la información en bruto del óptimo al que se llegó,
+imágenes con los cortes óptimos por tipo de madera, y un archivo .xls con la cubicación final.
+
+Ojo que si se ejecuta mas de una vez se mantienen los .xls y .txt que retornaron las ejecuciones anteriores pero
+las imágenes se sobreescriben, sin borrar las anteriores. Esto puede causar que se mezclen imágenes de distintas
+ejecuciones. Para estar seguros de que las imagenes son las correctas, borrar la carpeta Imagenes y
+ejecutar nuevamente.
+
+El programa, mientras se ejecuta, crea y elimina muchos archivos auxiliares muy rápidamente, por lo que puede
+haber problemas si se usa dentro de una carpeta de Dropbox, Drive, etc.
