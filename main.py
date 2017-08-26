@@ -1,22 +1,8 @@
 from subprocess import call
 from drawer import *
 from excel_handler import *
+from optimizer import *
 import numpy as np
-
-def g2_patterns(cq, maxl):
-    patts = []
-    if not cq:
-        return patts
-    npatt = [0 for _ in cq]
-    corte, _ = cq[0]
-    while maxl >= 0:
-        returns = g2_patterns(cq[1:], maxl)
-        for ret in returns:
-            patts.append(npatt[:1] + ret)
-        patts.append(list(npatt))
-        maxl -= corte
-        npatt[0] += 1
-    return patts
 
 
 '''

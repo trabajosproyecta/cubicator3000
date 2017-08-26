@@ -50,5 +50,5 @@ El programa esta dividido en 4 archivos:
 
 ## Contribuyentes
  
- * [@ironcadiz](https://github.com/ironcadiz) (2017-2)
+ * Hielo ([@ironcadiz](https://github.com/ironcadiz)) 
  
