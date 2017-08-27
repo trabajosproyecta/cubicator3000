@@ -1,7 +1,7 @@
 from subprocess import call
-from drawer import *
-from excel_handler import *
-from optimizer import *
+from cubicator.drawer import *
+from cubicator.excel_handler import *
+from cubicator.optimizer import *
 from copy import deepcopy
 
 
@@ -155,8 +155,8 @@ def cubicar_por_proyecto(patrones_optimos):
                 [n for n, _ in patrones_optimos[constru][material]])
     return dic_proyectos
 
-NOMBREEXCEL = "cubicacion.xlsx"
-NRESULT = "optresult.txt"
+NOMBREEXCEL = "../cubicacion.xlsx"
+NRESULT = "../optresult.txt"
 
 if __name__ == "__main__":
     start()

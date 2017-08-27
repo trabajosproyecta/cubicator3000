@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-TTF = "arial.ttf"
+TTF = "../arial.ttf"
 ANCHO = 2
 
 
@@ -53,7 +53,7 @@ def crear_imagen_palo(constru, material, n_lista_cq, l_i):
         font = ImageFont.truetype(TTF,size=40)
         draw.text([50, 15], material, fill=(0, 0, 0), font=font)
         crear_palos(draw, (100, 100), n_lista_cq[:n], l_i)
-        direccion = "./imagenes/"
+        direccion = "../imagenes/"
         if not os.path.exists(direccion):
             os.makedirs(direccion)
         nombre = constru + " " + material

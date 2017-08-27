@@ -39,7 +39,7 @@ cualquier plataforma y usarlo fácilmente.
 
 * Hacer refactoring profundo del código para que sea mantenible por cualquier jefe / comisionado que desee trabajar en el.
  
-## Estructura del sistema
+## Diseño del sistema
 El programa esta dividido en 4 archivos:
 
 * `main.py` es el archivo legado de la versión anterior y es el que se ejecuta.
