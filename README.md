@@ -16,9 +16,7 @@ versión 2.0 con cplex.
 
 
 ## Procedimiento de desarrollo.
- La rama master del repositorio se mantendrá en la versión 2.0 hasta que la 3.0 este dándo algún resultado mínimo
-  razonable.
- 
+
  La branch principal de desarrollo es `development`. Todo trabajo debe llevarse o hacerse en ella antes de pasarse a 
  `master`.
   
