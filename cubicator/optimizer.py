@@ -43,9 +43,9 @@ def create_model(cuts_quantity,maxl):
 
     # F.O sum over X variables
     model += lpSum([dict_X[i] for i in range(n)]), "Minimize tables used"
-    # restrictions the amount of every cut should be the amount demanded
+    # restrictions: the amount of every cut should be the amount demanded
     for j in range(m):
-        model += lpSum([dict_X[i] * patterns[i][j] for i in range(n)]) == cuts_quantity[j][1],"the amoun of cut {} produced equals the obtained".format(j)
+        model += lpSum([dict_X[i] * patterns[i][j] for i in range(n)]) == cuts_quantity[j][1],"the amount of cut {} produced equals the demanded".format(j)
     return model,patterns
 
 
