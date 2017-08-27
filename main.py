@@ -2,46 +2,7 @@ from subprocess import call
 from drawer import *
 from excel_handler import *
 from optimizer import *
-import numpy as np
-
-
-'''
-def writemodel(nombre, mstring):
-    with open(nombre, "w") as archivomodelo:
-        archivomodelo.write(mstring)
-
-
-def writerun(nombre, rstring):
-    with open(nombre, "w") as archivorun:
-        archivorun.write(rstring)
-
-
-def writedata(nombre, patterns, cq, cuts):
-    with open(nombre, "w") as archivodat:
-        archivodat.write("data; \n\n")
-        archivodat.write("set CUTS := "+str(cuts[0]))
-        for cut in cuts[1:]:
-            archivodat.write(", "+str(cut))
-        archivodat.write(";\n\n")
-        archivodat.write("set PATTERNS := 1")
-        for i, _ in enumerate(patterns[1:]):
-            archivodat.write(", " + str(i+2))
-        archivodat.write(";\n\n")
-        archivodat.write("param cantidad :=")
-        for corte, num in cq:
-            archivodat.write("\n\t" + str(corte) + "\t\t" + str(num))
-        archivodat.write(";\n\n")
-        archivodat.write("param q :")
-        for i, _ in enumerate(patterns):
-            archivodat.write("\t"+str(i+1))
-        archivodat.write(":=")
-        for i, corte in enumerate(cuts):
-            archivodat.write("\n")
-            archivodat.write("\t"+str(corte)+"\t")
-            for pattern in patterns:
-                archivodat.write("\t" + str(pattern[i]))
-        archivodat.write(";\n")
-'''
+from copy import deepcopy
 
 
 def get_results(nombre, patterns):
@@ -99,37 +60,27 @@ def optimize(cortes_cantidad, construccion, material, largos,
     """
 
     nombre = " -- " + construccion + " - " + material + " -- "
-    cuts = [a for a, b in cortes_cantidad]
-    qs = [b for a, b in cortes_cantidad]
-    cq = [[a, b] for a, b in zip(cuts, qs)]
+    print(nombre)
+    print(cortes_cantidad)
+    #copy of cortes_cantidad
+    cq = deepcopy(cortes_cantidad)
+    cuts = list(map(lambda x: x[0],cortes_cantidad))
+    model, patterns = create_model(cq, largos[material])
+    result = solve(model, patterns)
+    print(result)
 
-    patterns = g2_patterns(cq, largos[material])
 
-    # writedata(NDATA, patterns, cq, cuts)
-    #
-    # writemodel(NMODEL, modelstring)
-    #
-    # writerun(NRUN, runstring)
-    #
-    # with open(os.devnull, "w") as f:
-    #     call("ampl "+NRUN, stdout=f)
-    #
-    # optimum = get_results(NAMPLOUT, patterns)
+    #transformación de resultado para retrocompatibilidad
+    optimum = [[result[x],x] for x in result]
 
-    ## ACA LLAMAR A MODELO DE PULP
+    aa = list(zip([result[p] for p in result],[list(zip(cuts, p)) for p in result]))
 
-    aa = list(zip([n for n, _ in optimum],
-                  [list(zip(cuts, p)) for _, p in optimum]))
-
-    # Agregando al diccionario de optimos
+    # Agregando al diccionario de optimos. El verdadero output de la optimización es al hacer esto.
     if construccion not in patrones_optimos:
         patrones_optimos[construccion] = {}
 
     patrones_optimos[construccion][material] = aa
-
     sresults = string_results(nombre, optimum, cuts, precios[material])
-
-    delfiles([NDATA, NMODEL, NRUN, NAMPLOUT])
 
     return sresults, sum([a for a, b in optimum])
 
@@ -143,7 +94,7 @@ def tointstr(numero):
     return nums
 
 
-def comenzar():
+def start():
     largos, precios, diccionario, listas_ordenadas = get_excel(NOMBREEXCEL)
     lo_construcciones, lo_materiales = listas_ordenadas
 
@@ -204,50 +155,8 @@ def cubicar_por_proyecto(patrones_optimos):
                 [n for n, _ in patrones_optimos[constru][material]])
     return dic_proyectos
 
-
-'''
-NDATA = "optdata.dat"
-NMODEL = "optmodel.mod"
-NRUN = "optrun.run"
-NAMPLOUT = "optxz.txt"
-NRESULT = "optresult.txt"
 NOMBREEXCEL = "cubicacion.xlsx"
-
-modelstring = (
-    """
-#Parametros
-
-set CUTS;
-set PATTERNS;
-
-param cantidad {CUTS};
-
-param q {CUTS, PATTERNS};
-
-# VARIABLE
-var x {PATTERNS} integer >= 0;
-
-# FO
-minimize z: sum {j in PATTERNS} x[j];
-
-# RESTRICCIONES
-
-subject to restriccion1 {i in CUTS}:
-        cantidad[i] == sum {j in PATTERNS} (x[j])*(q[i, j]);
-"""
-)
-
-runstring = (
-    """
-option solver cplex;
-model {} ;
-data {};
-solve ;
-option omit_zero_rows 1;
-display x, z >{};
-""".format(NMODEL, NDATA, NAMPLOUT)
-)
-'''
+NRESULT = "optresult.txt"
 
 if __name__ == "__main__":
-    comenzar()
+    start()

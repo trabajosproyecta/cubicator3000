@@ -3,3 +3,4 @@
 .idea
 *.iml
 imagenes/*
+*.pyc
