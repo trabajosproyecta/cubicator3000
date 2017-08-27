@@ -10,7 +10,7 @@ versión 2.0 con cplex.
 
 * xlrd 
 * xlwt 
-* Pillow-PIL (untested)
+* Pillow-PIL
 * numpy
 * pulp
 
