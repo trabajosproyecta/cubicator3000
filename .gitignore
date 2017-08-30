@@ -5,3 +5,7 @@
 imagenes/*
 *.pyc
 optresult.*
+cubicator/build/*
+cubicator/dist/*
+Cbc-2.7.5-win64
+cubicator/main.spec

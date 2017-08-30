@@ -1,6 +1,6 @@
 from pulp import *
 import numpy as np
-
+import os
 
 def get_patterns(cq, maxl):
     patts = []
@@ -50,8 +50,12 @@ def create_model(cuts_quantity,maxl):
 
 
 def solve(model,patterns):
+    cwd = os.getcwd()
+    solverdir = 'cbc-2.7.5-win64\\bin\\cbc.exe'  # extracted and renamed CBC solver binary
+    solverdir = os.path.join(cwd, solverdir)
+    solver = pulp.COIN_CMD(path=solverdir)
+    model.solve(solver)
     print("Solving")
-    model.solve()
     print(LpStatus[model.status])
     results = {}
     for x in model.variables():
