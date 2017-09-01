@@ -1,4 +1,3 @@
-from subprocess import call
 from cubicator.drawer import *
 from cubicator.excel_handler import *
 from cubicator.optimizer import *
@@ -41,13 +40,6 @@ def string_results(nombre, optimum, cuts, precio):
     s += "\n\n\tTotal: " + str(npalos)
     s += "\t\tPrecio: $" + tointstr(npalos * precio)
     return s
-
-
-def delfiles(names):
-    for name in names:
-        s = "del .\\" + name
-        call(s, shell=True)
-
 
 def optimize(cortes_cantidad, construccion, material, largos,
              patrones_optimos, precios):
