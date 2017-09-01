@@ -44,7 +44,7 @@ def crear_palos(draw, xy, n_lista_cq, l_i):
         y += 70
 
 
-def crear_imagen_palo(constru, material, n_lista_cq, l_i):
+def crear_imagen_palo(constru, material, n_lista_cq, l_i,direccion):
     i = 0
     n = 7
     while n_lista_cq:
@@ -53,7 +53,6 @@ def crear_imagen_palo(constru, material, n_lista_cq, l_i):
         font = ImageFont.truetype(TTF,size=40)
         draw.text([50, 15], material, fill=(0, 0, 0), font=font)
         crear_palos(draw, (100, 100), n_lista_cq[:n], l_i)
-        direccion = "../imagenes/"
         if not os.path.exists(direccion):
             os.makedirs(direccion)
         nombre = constru + " " + material

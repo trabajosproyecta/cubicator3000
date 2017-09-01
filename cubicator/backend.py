@@ -94,8 +94,8 @@ def tointstr(numero):
     return nums
 
 
-def start():
-    largos, precios, diccionario, listas_ordenadas = get_excel(NOMBREEXCEL)
+def start(input_file,output_file,image_dir):
+    largos, precios, diccionario, listas_ordenadas = get_excel(input_file)
     lo_construcciones, lo_materiales = listas_ordenadas
 
     patrones_optimos = {}
@@ -119,9 +119,9 @@ def start():
         sfinal += "*" * 60 + "\n\n\n"
 
     i = 1
-    nresult = NRESULT
+    nresult = output_file
     while nresult in os.listdir():
-        nresult = NRESULT[:-4] + " (" + str(i) + ")" + NRESULT[-4:]
+        nresult = output_file[:-4] + " (" + str(i) + ")" + output_file[-4:]
         i += 1
 
     with open(nresult, "w") as archivo:
@@ -133,7 +133,7 @@ def start():
     for constru in patrones_optimos:
         for material in patrones_optimos[constru]:
             crear_imagen_palo(constru, material,
-                              patrones_optimos[constru][material], largos[material])
+                              patrones_optimos[constru][material], largos[material],image_dir)
 
     print("Imagenes guardadas! Creando excel...")
 
@@ -155,8 +155,9 @@ def cubicar_por_proyecto(patrones_optimos):
                 [n for n, _ in patrones_optimos[constru][material]])
     return dic_proyectos
 
-NOMBREEXCEL = "../cubicacion.xlsx"
-NRESULT = "../optresult.txt"
 
 if __name__ == "__main__":
-    start()
+    NOMBREEXCEL = "../cubicacion.xlsx"
+    NRESULT = "../optresult.txt"
+    IMAGES = "../imagenes/"
+    start(NOMBREEXCEL,NRESULT,IMAGES)
