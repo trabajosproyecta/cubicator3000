@@ -30,8 +30,6 @@ versión 2.0 con cplex.
 * Generar una GUI amigable para que cualquier jefe futuro no computín / no ingeniero pueda instalar el programa en 
 cualquier plataforma y usarlo fácilmente.
 
-* Crear interfaz para agregar construcciones nuevas.
-
 * Hacer refactoring profundo del código para que sea mantenible por cualquier jefe / comisionado que desee trabajar en el.
  
 ## Diseño del sistema
@@ -43,6 +41,23 @@ El programa esta dividido en 4 archivos:
 * `optimizer.py` contiene funciones constructoras del modelo usando la libreria pulp.
 * `cubicator3000` es una interfaz gráfica simple para dar el archivo de input y directorios de output.
 
+## Sobre el optimizador
+El algoritmo de optimización corresponde a resolver un problema simple de programación lineal entera lo que se logra a través de
+la librería pulp. Los solvers de pulp no estan hechos en python si no que son ejecutables dentro de la librería, lo que genera que
+estos no sean reconocidos al pasar a un ejecutable con `pyinstaller`. La solución es descargar los archivos ejecutables de los 
+solver desde [acá](https://www.coin-or.org/download/binary/Cbc/) y luego descomprimirlo en la misma carpeta donde esta el código. 
+Para finalmente decirle a pulp que debe usar el solver desde el archivo descargado ( de esta manera al crear el ejecutable nos basta decirle a
+`pyinstaller` que copie los archivos o podemos hacerlo a mano). Esto esta implementado en la función `solve()` de el 
+archivo `optimizer.py`, donde se debe dejar la línea del sistema operativo en que estés trabajando descomentada.
+
+Los solvers que hay que descargar son:
+ 
+ * Windows: `Cbc-2.7.5-win64-intel11.1`
+ * Linux: `Cbc-2.4.0-linux-x86_64-gcc4.3.2-parallel`
+ * MacOS: pendiente :(
+
+ 
+ 
 ## Colaboradores
  
  * Hielo ([@ironcadiz](https://github.com/ironcadiz)) 
