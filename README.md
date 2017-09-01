@@ -6,7 +6,7 @@ El cubicator3000 es una aplicación de escritorio (hasta ahora) para optimizar l
 Gracias a @JoseAlamos por la idea y versión original y a [@shgoldfarb](https://github.com/SHGoldfarb) (2016-1)  por la 
 versión 2.0 con cplex.
  
-## Dependencias versión 3.0 (branch development):
+## Dependencias versión 3.0:
 
 * xlrd 
 * xlwt 
@@ -17,9 +17,6 @@ versión 2.0 con cplex.
 
 ## Procedimiento de desarrollo.
 
- La branch principal de desarrollo es `development`. Todo trabajo debe llevarse o hacerse en ella antes de pasarse a 
- `master`.
-  
  Recuerda desarrollar en un virtualenv de python y no en la instalación nativa, es una buena práctica y facilitará el 
  paso a `.exe` o a ejecutable
  
@@ -40,13 +37,13 @@ cualquier plataforma y usarlo fácilmente.
 ## Diseño del sistema
 El programa esta dividido en 4 archivos:
 
-* `main.py` es el archivo legado de la versión anterior y es el que se ejecuta.
+* `backend.py` archivo legado de la versión anterior. contiene la función principal y genera el output.
 * `excel_handler.py` contiene las funciones para abrir y guardar los archivos `.xlsx`.
 * `drawer.py` contiene las funciones para crear las imágenes.
 * `optimizer.py` contiene funciones constructoras del modelo usando la libreria pulp.
+* `cubicator3000` es una interfaz gráfica simple para dar el archivo de input y directorios de output.
 
-
-## Contribuyentes
+## Colaboradores
  
  * Hielo ([@ironcadiz](https://github.com/ironcadiz)) 
  

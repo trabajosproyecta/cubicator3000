@@ -2,6 +2,7 @@ from cubicator.backend import start
 from tkinter import Tk, N,GROOVE,END
 from tkinter.ttk import Frame,Button,Style,Label,Entry
 from tkinter.filedialog import askopenfilename,askdirectory
+from os import path
 
 
 class Gui(Frame):
@@ -50,7 +51,7 @@ class Gui(Frame):
         images_button = Button(self, text="Abrir",command=lambda:self.get_dir(self.entry_images))
         images_button.grid(row=3, column=2)
 
-        startButton = Button(self, text="Cubicar!")
+        startButton = Button(self, text="Cubicar!",command=lambda :self.run_optimize())
         startButton.grid(row=4,column=1)
         closeButton = Button(self, text="Salir", command=self.quit)
         closeButton.grid(row=4,column=2)
@@ -80,7 +81,7 @@ class Gui(Frame):
             entry.insert(0, dirname)
 
     def run_optimize(self):
-        start()
+        start(self.entry_input.get(), path.join(self.entry_output.get(), "resultado.txt"), self.entry_images.get()+"/")
 
 
 def main():
