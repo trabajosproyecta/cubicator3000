@@ -31,7 +31,7 @@ versión 2.0 con cplex.
 cualquier plataforma y usarlo fácilmente.
 
 * Hacer refactoring profundo del código para que sea mantenible por cualquier jefe / comisionado que desee trabajar en el.
- 
+ ``
 ## Diseño del sistema
 El programa esta dividido en 4 archivos:
 
@@ -56,7 +56,13 @@ Los solvers que hay que descargar son:
  * Linux: `Cbc-2.4.0-linux-x86_64-gcc4.3.2-parallel`
  * MacOS: pendiente :(
 
- 
+##Generar ejecutable
+ Para generar un ejecutable debes instalar la librería `pyinstaller` en tu virtualenv y luego ejecutar en la carpeta cubicator el comando: 
+ ```bash
+ pyinstaller cubicator3000.py
+ ```
+ Eso generará la carpeta `dist` con el ejecutable. Luego debes copiar el archivo `arial.ttf` a la carpeta `dist/` y 
+ la carpeta con el solver a `dist/cubicator3000/`.
  
 ## Colaboradores
  

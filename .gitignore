@@ -8,5 +8,5 @@ optresult.*
 cubicator/build/*
 cubicator/dist/*
 Cbc-2.7.5-win64
-cubicator/main.spec
+cubicator/cubicator3000.spec
 Cbc-2.4.0-linux-x86_64
