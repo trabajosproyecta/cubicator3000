@@ -23,7 +23,7 @@ def get_excel(nombre):
     for constru in construcciones:
         sheet = book.sheet_by_name(constru)
         if sheet.nrows <= 1:  # Si no hay filas en la hoja...
-            print("Nada que optimizar en " + constru + "...")
+            #print("Nada que optimizar en " + constru + "...")
             continue
 
         materiales = {}

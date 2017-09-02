@@ -52,13 +52,13 @@ def create_model(cuts_quantity,maxl):
 def solve(model,patterns):
     cwd = os.getcwd()
     # extracted and renamed CBC solver binary
-    #solverdir = 'cbc-2.7.5-win64\\bin\\cbc.exe' #windows
-    solverdir = 'Cbc-2.4.0-linux-x86_64/bin/cbc' #linux
+    solverdir = 'cbc-2.7.5-win64\\bin\\cbc.exe' #windows
+    #solverdir = 'Cbc-2.4.0-linux-x86_64/bin/cbc' #linux
     solverdir = os.path.join(cwd, solverdir)
     solver = pulp.COIN_CMD(path=solverdir)
     model.solve(solver)
-    print("Solving")
-    print(LpStatus[model.status])
+    #print("Solving")
+    #print(LpStatus[model.status])
     results = {}
     for x in model.variables():
         if x.varValue > 0:

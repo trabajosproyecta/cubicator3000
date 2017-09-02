@@ -52,14 +52,14 @@ def optimize(cortes_cantidad, construccion, material, largos,
     """
 
     nombre = " -- " + construccion + " - " + material + " -- "
-    print(nombre)
-    print(cortes_cantidad)
+    #print(nombre)
+    #print(cortes_cantidad)
     #copy of cortes_cantidad
     cq = deepcopy(cortes_cantidad)
     cuts = list(map(lambda x: x[0],cortes_cantidad))
     model, patterns = create_model(cq, largos[material])
     result = solve(model, patterns)
-    print(result)
+    #print(result)
 
 
     #transformación de resultado para retrocompatibilidad
@@ -94,7 +94,7 @@ def start(input_file,output_file,image_dir):
 
     sfinal = ""
     for construccion in diccionario:
-        print("Optimizando " + construccion + "...")
+        #print("Optimizando " + construccion + "...")
         total = 0
         totalpalos = {}
         for material in diccionario[construccion]:
@@ -119,22 +119,22 @@ def start(input_file,output_file,image_dir):
     with open(nresult, "w") as archivo:
         archivo.write(sfinal)
 
-    print("Listo!! Resultados de la optimizacion guardados en " + nresult)
-    print("Guardando imagenes...")
+    #print("Listo!! Resultados de la optimizacion guardados en " + nresult)
+    #print("Guardando imagenes...")
 
     for constru in patrones_optimos:
         for material in patrones_optimos[constru]:
             crear_imagen_palo(constru, material,
                               patrones_optimos[constru][material], largos[material],image_dir)
 
-    print("Imagenes guardadas! Creando excel...")
+    #print("Imagenes guardadas! Creando excel...")
 
     cubicacion_por_proyecto = cubicar_por_proyecto(patrones_optimos)
     nexcelresult = nresult[:-4] + ".xls"
     crear_excel(cubicacion_por_proyecto, nexcelresult,
                 lo_construcciones, lo_materiales)
 
-    print("Listo! Excel guardado en " + nexcelresult)
+    #print("Listo! Excel guardado en " + nexcelresult)
 
 
 def cubicar_por_proyecto(patrones_optimos):
