@@ -61,8 +61,8 @@ Los solvers que hay que descargar son:
  ```bash
  pyinstaller cubicator3000.py
  ```
- Eso generará la carpeta `dist` con el ejecutable. Luego debes copiar el archivo `arial.ttf` a la carpeta `dist/` y 
- la carpeta con el solver a `dist/cubicator3000/`.
+ Eso generará la carpeta `dist` con el ejecutable. Luego debes copiar el archivo `arial.ttf` y 
+ la carpeta con el solver a `dist/cubicator3000/`. Finalmente agrega el manual y el excel de prueba a la carpeta `dist/`.
  
 ## Colaboradores
  

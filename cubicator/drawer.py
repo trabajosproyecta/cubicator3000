@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-TTF = "../arial.ttf"
+TTF = "arial.ttf"
 ANCHO = 2
 
 
