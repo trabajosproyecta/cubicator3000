@@ -6,9 +6,9 @@ from os import path
 
 
 class Gui(Frame):
-    def __init__(self):
+    def __init__(self,root):
         super().__init__()
-
+        self.root = root
         self.initUI()
 
     def initUI(self):
@@ -51,6 +51,9 @@ class Gui(Frame):
         images_button = Button(self, text="Abrir",command=lambda:self.get_dir(self.entry_images))
         images_button.grid(row=3, column=2)
 
+        self.label_result = Label(self,text="")
+        self.label_result.grid(row=4,column=0)
+
         startButton = Button(self, text="Cubicar!",command=lambda :self.run_optimize())
         startButton.grid(row=4,column=1)
         closeButton = Button(self, text="Salir", command=self.quit)
@@ -81,12 +84,15 @@ class Gui(Frame):
             entry.insert(0, dirname)
 
     def run_optimize(self):
+        self.label_result.config(text="Calculando...")
+        self.root.update()
         start(self.entry_input.get(), path.join(self.entry_output.get(), "resultado.txt"), self.entry_images.get()+"/")
+        self.label_result['text'] = "Listo!"
 
 
 def main():
     root = Tk()
-    ex = Gui()
+    ex = Gui(root)
     root.mainloop()
 
 
