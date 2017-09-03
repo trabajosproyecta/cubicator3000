@@ -67,4 +67,5 @@ Los solvers que hay que descargar son:
 ## Colaboradores
  
  * Hielo ([@ironcadiz](htytps://github.com/ironcadiz))
+ * Sam [@shgoldfarb](https://github.com/SHGoldfarb)
  
