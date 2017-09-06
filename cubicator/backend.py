@@ -41,33 +41,34 @@ def string_results(nombre, optimum, cuts, precio):
     s += "\t\tPrecio: $" + tointstr(npalos * precio)
     return s
 
+
 def optimize(cortes_cantidad, construccion, material, largos,
              patrones_optimos, precios):
     """
+    Retorna string con los cortes y el numero de palos que se usaron.
+
     cortes_cantidad: [[float(largo del corte), int(cantidad)], ]
     construccion: str(construccion)
     material: str(material)
-
-    retorna string con los cortes y el numero de palos que se usaron
     """
-
     nombre = " -- " + construccion + " - " + material + " -- "
-    #print(nombre)
-    #print(cortes_cantidad)
-    #copy of cortes_cantidad
+    # print(nombre)
+    # print(cortes_cantidad)
+    # copy of cortes_cantidad
     cq = deepcopy(cortes_cantidad)
-    cuts = list(map(lambda x: x[0],cortes_cantidad))
+    cuts = list(map(lambda x: x[0], cortes_cantidad))
     model, patterns = create_model(cq, largos[material])
     result = solve(model, patterns)
-    #print(result)
+    # print(result)
 
+    # transformación de resultado para retrocompatibilidad
+    optimum = [[result[x], x] for x in result]
 
-    #transformación de resultado para retrocompatibilidad
-    optimum = [[result[x],x] for x in result]
+    aa = list(zip([result[p] for p in result],
+                  [list(zip(cuts, p)) for p in result]))
 
-    aa = list(zip([result[p] for p in result],[list(zip(cuts, p)) for p in result]))
-
-    # Agregando al diccionario de optimos. El verdadero output de la optimización es al hacer esto.
+    # Agregando al diccionario de optimos. El verdadero output de
+    # la optimización es al hacer esto.
     if construccion not in patrones_optimos:
         patrones_optimos[construccion] = {}
 
@@ -86,7 +87,7 @@ def tointstr(numero):
     return nums
 
 
-def start(input_file,output_file,image_dir):
+def start(input_file, output_file, image_dir):
     largos, precios, diccionario, listas_ordenadas = get_excel(input_file)
     lo_construcciones, lo_materiales = listas_ordenadas
 
@@ -94,12 +95,13 @@ def start(input_file,output_file,image_dir):
 
     sfinal = ""
     for construccion in diccionario:
-        #print("Optimizando " + construccion + "...")
+        # print("Optimizando " + construccion + "...")
         total = 0
         totalpalos = {}
         for material in diccionario[construccion]:
             sresults, n = optimize(diccionario[construccion][material],
-                                   construccion, material, largos, patrones_optimos, precios)
+                                   construccion, material, largos,
+                                   patrones_optimos, precios)
             sfinal += sresults + "\n\n"
             total += n * precios[material]
             totalpalos[material] = n
@@ -119,22 +121,23 @@ def start(input_file,output_file,image_dir):
     with open(nresult, "w") as archivo:
         archivo.write(sfinal)
 
-    #print("Listo!! Resultados de la optimizacion guardados en " + nresult)
-    #print("Guardando imagenes...")
+    # print("Listo!! Resultados de la optimizacion guardados en " + nresult)
+    # print("Guardando imagenes...")
 
     for constru in patrones_optimos:
         for material in patrones_optimos[constru]:
             crear_imagen_palo(constru, material,
-                              patrones_optimos[constru][material], largos[material],image_dir)
+                              patrones_optimos[constru][material],
+                              largos[material], image_dir)
 
-    #print("Imagenes guardadas! Creando excel...")
+    # print("Imagenes guardadas! Creando excel...")
 
     cubicacion_por_proyecto = cubicar_por_proyecto(patrones_optimos)
     nexcelresult = nresult[:-4] + ".xls"
     crear_excel(cubicacion_por_proyecto, nexcelresult,
                 lo_construcciones, lo_materiales)
 
-    #print("Listo! Excel guardado en " + nexcelresult)
+    # print("Listo! Excel guardado en " + nexcelresult)
 
 
 def cubicar_por_proyecto(patrones_optimos):
@@ -152,4 +155,4 @@ if __name__ == "__main__":
     NOMBREEXCEL = "../cubicacion.xlsx"
     NRESULT = "../optresult.txt"
     IMAGES = "../imagenes/"
-    start(NOMBREEXCEL,NRESULT,IMAGES)
+    start(NOMBREEXCEL, NRESULT, IMAGES)

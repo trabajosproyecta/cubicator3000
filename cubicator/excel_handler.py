@@ -23,7 +23,7 @@ def get_excel(nombre):
     for constru in construcciones:
         sheet = book.sheet_by_name(constru)
         if sheet.nrows <= 1:  # Si no hay filas en la hoja...
-            #print("Nada que optimizar en " + constru + "...")
+            # print("Nada que optimizar en " + constru + "...")
             continue
 
         materiales = {}
@@ -46,15 +46,16 @@ def get_excel(nombre):
         for mater in ret[constru]:
             retorno[constru][mater] = []
             for corte in ret[constru][mater]:
-                retorno[constru][mater].append([corte,
-                                                int(ret[constru][mater][corte])])
+                retorno[constru][mater].append(
+                    [corte, int(ret[constru][mater][corte])])
 
     return L_material, precio_material, retorno, (construcciones, lmateriales)
 
 
 def crear_excel(cubicacion_por_proyecto, nombre, lo_con, lo_mat):
-    materiales_usados = set(reduce(lambda a, b: a + b,
-                                   [list(mats.keys()) for mats in cubicacion_por_proyecto.values()]))
+    materiales_usados = set(
+        reduce(lambda a, b: a + b, [list(mats.keys()) for mats in
+                                    cubicacion_por_proyecto.values()]))
     lo_con = [con for con in lo_con if con in cubicacion_por_proyecto]
     lo_mat = [mat for mat in lo_mat if mat in materiales_usados]
 
