@@ -1,4 +1,4 @@
-from cubicator.backend import start
+from backend import start
 from tkinter import Tk, N,GROOVE,END
 from tkinter.ttk import Frame,Button,Style,Label,Entry
 from tkinter.filedialog import askopenfilename,askdirectory

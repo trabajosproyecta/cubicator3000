@@ -1,6 +1,6 @@
-from cubicator.drawer import *
-from cubicator.excel_handler import *
-from cubicator.optimizer import *
+from drawer import *
+from excel_handler import *
+from optimizer import *
 from copy import deepcopy
 
 
