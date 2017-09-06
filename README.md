@@ -44,8 +44,8 @@ El programa esta dividido en 4 archivos:
 ## Sobre el optimizador
 El algoritmo de optimización corresponde a resolver un problema simple de programación lineal entera lo que se logra a través de
 la librería pulp. Los solvers de pulp no estan hechos en python si no que son ejecutables dentro de la librería, lo que genera que
-estos no sean reconocidos al pasar a un ejecutable con `pyinstaller`. La solución es descargar los archivos ejecutables de los 
-solver desde [acá](https://www.coin-or.org/download/binary/Cbc/) y luego descomprimirlo en la misma carpeta donde esta el código. 
+estos no sean reconocidos al pasar a un ejecutable con `pyinstaller`. La solución es  copiar el solver desde la librería pulp
+manualmente a  la misma carpeta donde esta el código. los solvers se encuentran en `path_virtualenv/lib/python3.5/site-packages/pulp/solverdir/cbc` 
 Para finalmente decirle a pulp que debe usar el solver desde el archivo descargado ( de esta manera al crear el ejecutable nos basta decirle a
 `pyinstaller` que copie los archivos o podemos hacerlo a mano). Esto esta implementado en la función `solve()` de el 
 archivo `optimizer.py`, donde se debe dejar la línea del sistema operativo en que estés trabajando descomentada.
