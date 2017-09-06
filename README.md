@@ -59,12 +59,13 @@ Los solvers que hay que descargar son:
 ##Generar ejecutable
  Para generar un ejecutable debes instalar la librería `pyinstaller` en tu virtualenv y luego ejecutar en la carpeta cubicator el comando: 
  ```bash
- pyinstaller cubicator3000.py
+ pyinstaller --noconsole cubicator3000.py
  ```
  Eso generará la carpeta `dist` con el ejecutable. Luego debes copiar el archivo `arial.ttf` y 
  la carpeta con el solver a `dist/cubicator3000/`. Finalmente agrega el manual y el excel de prueba a la carpeta `dist/`.
  
 ## Colaboradores
  
- * Hielo ([@ironcadiz](https://github.com/ironcadiz)) 
+ * Hielo [@ironcadiz](https://github.com/ironcadiz)
+ * Sam [@shgoldfarb](https://github.com/SHGoldfarb)
  
