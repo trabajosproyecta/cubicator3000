@@ -50,11 +50,6 @@ Para finalmente decirle a pulp que debe usar el solver desde el archivo descarga
 `pyinstaller` que copie los archivos o podemos hacerlo a mano). Esto esta implementado en la función `solve()` de el 
 archivo `optimizer.py`, donde se debe dejar la línea del sistema operativo en que estés trabajando descomentada.
 
-Los solvers que hay que descargar son:
- 
- * Windows: `Cbc-2.7.5-win64-intel11.1`
- * Linux: `Cbc-2.4.0-linux-x86_64-gcc4.3.2-parallel`
- * MacOS: pendiente :(
 
 ##Generar ejecutable
  Para generar un ejecutable debes instalar la librería `pyinstaller` en tu virtualenv y luego ejecutar en la carpeta cubicator el comando: 
