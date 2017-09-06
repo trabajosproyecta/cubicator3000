@@ -16,4 +16,6 @@ Cbc-2.4.0-linux-x86_64
 # environment
 env
 
+# Solvers
+cbc
 run_sam.py
