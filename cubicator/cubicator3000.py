@@ -102,7 +102,7 @@ class Gui(Frame):
 
 def main():
     root = Tk()
-    ex = Gui(root)
+    Gui(root)
     root.mainloop()
 
 
