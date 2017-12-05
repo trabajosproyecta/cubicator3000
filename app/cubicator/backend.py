@@ -1,6 +1,6 @@
-from drawer import crear_imagen_palo
-from excel_handler import get_excel, crear_excel
-from optimizer import create_model, solve, os
+from .drawer import crear_imagen_palo
+from .excel_handler import get_excel, crear_excel
+from .optimizer import create_model, solve, os
 from copy import deepcopy
 
 
