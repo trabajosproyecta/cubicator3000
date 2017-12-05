@@ -65,6 +65,7 @@ def solve(model, patterns):
     model.solve()
     # print("Solving")
     # print(LpStatus[model.status])
+    # model.solve()
     results = {}
     for x in model.variables():
         if x.varValue > 0:

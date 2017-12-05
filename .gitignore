@@ -18,3 +18,4 @@ env
 
 # Solvers
 cbc
+*.xlsx
