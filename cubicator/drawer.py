@@ -21,8 +21,8 @@ def centrar_texto(draw, xyxy, texto):
 
 def crear_palo(draw, xy, n, lista_cq, l_i):
     x, y = xy
-    font = ImageFont.truetype(TTF,size=40)
-    draw.text([xy[0] - 75, xy[1] + 5], "x" + str(n), fill=(0, 0, 0),font=font)
+    font = ImageFont.truetype(TTF, size=40)
+    draw.text([xy[0] - 75, xy[1] + 5], "x" + str(n), fill=(0, 0, 0), font=font)
     xi = 0
     for corte, cantidad in lista_cq:
         if cantidad != 0:
@@ -44,16 +44,15 @@ def crear_palos(draw, xy, n_lista_cq, l_i):
         y += 70
 
 
-def crear_imagen_palo(constru, material, n_lista_cq, l_i):
+def crear_imagen_palo(constru, material, n_lista_cq, l_i, direccion):
     i = 0
     n = 7
     while n_lista_cq:
         im = Image.new("RGB", (800, 600), (255, 255, 255))
         draw = ImageDraw.Draw(im)
-        font = ImageFont.truetype(TTF,size=40)
+        font = ImageFont.truetype(TTF, size=40)
         draw.text([50, 15], material, fill=(0, 0, 0), font=font)
         crear_palos(draw, (100, 100), n_lista_cq[:n], l_i)
-        direccion = "./imagenes/"
         if not os.path.exists(direccion):
             os.makedirs(direccion)
         nombre = constru + " " + material
