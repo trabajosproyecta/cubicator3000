@@ -5,12 +5,12 @@
 imagenes/*
 *.pyc
 optresult.*
-cubicator/build/*
-cubicator/dist/*
+app/cubicator/build/*
+app/cubicator/dist/*
 Cbc-2.7.5-win64
-cubicator/cubicator3000.spec
+app/cubicator/cubicator3000.spec
 Cbc-2.4.0-linux-x86_64
-
+resultado
 # Sam
 
 # environment
