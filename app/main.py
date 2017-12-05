@@ -53,6 +53,7 @@ def upload_file():
                 for file in os.listdir(path_images):
                     zip.write(os.path.join(path_images,file))
 
+            #TODO Cleanup
             return redirect(url_for('uploaded_file',
                                     filename=filename_clean))
     return '''
