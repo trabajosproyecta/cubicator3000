@@ -19,3 +19,4 @@ env
 # Solvers
 cbc
 run_sam.py
+*.xlsx
