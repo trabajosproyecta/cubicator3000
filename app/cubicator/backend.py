@@ -86,7 +86,7 @@ def tointstr(numero):
             nums = nums[:largo - i] + "." + nums[largo - i:]
     return nums
 
-
+#TODO change input for file objects instead of string paths.
 def start(input_file, output_file, image_dir):
     largos, precios, diccionario, listas_ordenadas = get_excel(input_file)
     lo_construcciones, lo_materiales = listas_ordenadas
@@ -113,10 +113,11 @@ def start(input_file, output_file, image_dir):
         sfinal += "*" * 60 + "\n\n\n"
 
     i = 1
+    #TODO this code makes no sense if the output file isnt in the current working directory
     nresult = output_file
-    while nresult in os.listdir():
-        nresult = output_file[:-4] + " (" + str(i) + ")" + output_file[-4:]
-        i += 1
+    # while nresult in os.listdir():
+    #     nresult = output_file[:-4] + " (" + str(i) + ")" + output_file[-4:]
+    #     i += 1
 
     try:
         with open(nresult, "w") as archivo:
@@ -138,7 +139,7 @@ def start(input_file, output_file, image_dir):
     # print("Imagenes guardadas! Creando excel...")
 
     cubicacion_por_proyecto = cubicar_por_proyecto(patrones_optimos)
-    nexcelresult = nresult[:-4] + ".xls"
+    nexcelresult = nresult + ".xls"
     crear_excel(cubicacion_por_proyecto, nexcelresult,
                 lo_construcciones, lo_materiales)
 
