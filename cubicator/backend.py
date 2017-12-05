@@ -1,6 +1,6 @@
-from drawer import *
-from excel_handler import *
-from optimizer import *
+from drawer import crear_imagen_palo
+from excel_handler import get_excel, crear_excel
+from optimizer import create_model, solve, os
 from copy import deepcopy
 
 
@@ -118,8 +118,13 @@ def start(input_file, output_file, image_dir):
         nresult = output_file[:-4] + " (" + str(i) + ")" + output_file[-4:]
         i += 1
 
-    with open(nresult, "w") as archivo:
-        archivo.write(sfinal)
+    try:
+        with open(nresult, "w") as archivo:
+            archivo.write(sfinal)
+    except FileNotFoundError:
+        os.makedirs(os.path.dirname(nresult))
+        with open(nresult, "w") as archivo:
+            archivo.write(sfinal)
 
     # print("Listo!! Resultados de la optimizacion guardados en " + nresult)
     # print("Guardando imagenes...")

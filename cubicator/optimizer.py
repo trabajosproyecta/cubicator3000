@@ -1,4 +1,4 @@
-from pulp import *
+from pulp import LpProblem, LpMinimize, LpVariable, LpInteger, lpSum, pulp
 import numpy as np
 import os
 
@@ -47,7 +47,9 @@ def create_model(cuts_quantity, maxl):
     model += lpSum([dict_X[i] for i in range(n)]), "Minimize tables used"
     # restrictions: the amount of every cut should be the amount demanded
     for j in range(m):
-        model += lpSum([dict_X[i] * patterns[i][j] for i in range(n)]) == cuts_quantity[j][1], "the amount of cut {} produced equals the demanded".format(j)
+        temp_var = lpSum([dict_X[i] * patterns[i][j] for i in range(n)])
+        temp_string = "the amount of cut {} produced equals the demanded"
+        model += temp_var == cuts_quantity[j][1], temp_string.format(j)
     return model, patterns
 
 
