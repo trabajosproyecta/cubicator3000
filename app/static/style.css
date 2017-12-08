@@ -1,12 +1,47 @@
 
 body {
-    background-color: rgba(157, 219, 229, 0.884);
+    background-color: #70b9db;
 }
 
+.mainbox {
+    background-color: rgba(255, 255, 255, 0.884);
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-top: 10px;
+}
 
 h1 {
     color: rgb(0, 0, 0);
     text-align: center;
     margin-left: 200px;
     margin-right: 200px;
+}
+
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
 }
