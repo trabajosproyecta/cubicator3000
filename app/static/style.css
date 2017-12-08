@@ -49,7 +49,14 @@ h1 {
     color: white;
     margin-bottom: 15px;
 }
-
+.title_text{
+   color: #000000; 
+   font-family: 'Raleway',sans-serif; 
+   font-size: 18px; 
+   font-weight: 500; 
+   line-height: 32px; 
+   margin: 0 0 24px;
+}
 /* The close button */
 .closebtn {
     margin-left: 15px;
@@ -62,6 +69,61 @@ h1 {
     transition: 0.3s;
     
 }
+
+.downloables {
+    display: block;
+    text-align: center;
+}
+
+.excel_d {
+    display: block;
+    text-align: left;
+    
+    
+}
+
+#excel_d_button {
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    transition-duration: 0.4s;   
+    background-color: white;
+    color: black;
+    border: 2px solid #22833f; 
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor:pointer;
+    font-family:trial
+}
+#excel_d_button:hover{
+    background-color: #22833f; /* Green */
+    color: white;
+}
+
+#pdf_d_button {
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    transition-duration: 0.4s;   
+    background-color: white;
+    color: black;
+    border: 2px solid #a53223; 
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor:pointer;
+    font-family:trial
+}
+#pdf_d_button:hover{
+    background-color: #a53223; /* Green */
+    color: white;
+}
+
+
+
 
 .excel_form {
     display: block;
@@ -79,9 +141,9 @@ h1 {
 #preview{
     display: block;
     text-align: left;
-    margin-top: 12px;
-    
 }
+
+
 
 
 /* Clear floats after the columns */
@@ -114,7 +176,6 @@ h1 {
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     transition-duration: 0.4s;
@@ -139,21 +200,9 @@ h1 {
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     transition-duration: 0.4s;    font-weight: 700;
-    background-color: white;
-    color: black;
-    border: 2px solid #70b9db; 
-    display: inline-block;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    transition-duration: 0.4s;
     cursor:pointer;
     display:none;
     font-family:trial

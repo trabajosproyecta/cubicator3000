@@ -22,7 +22,7 @@ def centrar_texto(draw, xyxy, texto):
 def crear_palo(draw, xy, n, lista_cq, l_i):
     x, y = xy
     font = ImageFont.truetype(TTF, size=40)
-    draw.text([xy[0] - 75, xy[1] + 5], "x" + str(n), fill=(0, 0, 0), font=font)
+    draw.text([xy[0] - 75, xy[1] + 5], "x" + str(int(n)), fill=(0, 0, 0), font=font)
     xi = 0
     for corte, cantidad in lista_cq:
         if cantidad != 0:

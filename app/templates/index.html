@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <h1 class="proyecta">Proyecta UC</h1>
+    <h1 class="proyecta">Proyecta UC</h1>
     <div class="mainbox">
         <div class="title_text">
             <h1>Logisti Cubicador !</h1>
@@ -27,9 +27,9 @@
 
                 Para utilizar la herramienta sólo debes crear un excel con la descripción de los palos a usar y las medidas
                 de los cortes.
-                 Lo subes con el botón "subir archivo" de más abajo, luego das click en cubicar y sha esta! Para mas información sobre como
-                debe ser el excel
-                puedes descargar el manual y la planilla de ejemplo. El sistema entrega como resultado un archivo zip que
+                 Lo subes con el botón "subir archivo" de más abajo, luego das click en cubicar y sha esta! <br>
+                Para mas información sobre como debe ser el excel puedes descargar el manual y la planilla de ejemplo. <br>
+                El sistema entrega como resultado un archivo zip que
                 contiene lo siguiente: <br>
             </p>
             <ul>
@@ -38,7 +38,7 @@
                 <li>Carpeta con imagenes de los cortes listas para poner en el manual.</li>
             </ul>
             <p>
-                Si bien la idea original fue desarrollada por Jose Alamos en el año 100 A.C y la versión actual
+                Si bien la idea original fue desarrollada en el año 100 A.C y la versión actual
                 por la comisión de logística de los trabajos curepto 2018, la intención es que sea usado todos los semestres
                 por quién sea que quiera usarlo, por lo que si tienes cualquier problema no dudes en escribirme a
                 <a href="mailto:afcadiz@uc.cl?Subject=Duda%20Cubicador" target="_top">afcadiz@uc.cl</a> y trataré de
@@ -49,12 +49,29 @@
             </p>
         </div>
 
+        <div class="downloables">
+            <div class="row">
+                <div class="column" >
+                    <a class="pdf_d" href="{{ url_for('static', filename='public/manual.pdf') }}" download="manual.pdf">
+                        <button id="pdf_d_button">Descargar Manual</button>
+                    </a>
+                </div>
+                <div class="column">
+                    <a class="excel_d" href="{{ url_for('static', filename='public/excel_ejemplo.xlsx') }}" download="excel_ejemplo.xlsx">
+                        <button id="excel_d_button">Descargar excel de ejemplo</button>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
         <div class="excel_form">
             <form method=post enctype=multipart/form-data>
                 <div class="row">
                     <div class="column">
-                        <p><input type=file name=file id="file" class="inputfile">
-                            <label for="file">Subir archivo</label>
+                        <input type=file name=file id="file" class="inputfile">
+                        <label for="file">Subir archivo</label>
                     </div>
 
                     <div class="column" id="preview">
