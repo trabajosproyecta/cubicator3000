@@ -19,3 +19,4 @@ env
 # Solvers
 cbc
 *.xlsx
+!app/static/public/excel_ejemplo.xlsx
