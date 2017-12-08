@@ -15,13 +15,14 @@ app.config['RESULTS_FOLDER'] = './'
 app.config['IMAGES_FOLDER'] = './'
 app.config['ZIPS_FOLDER'] = './'
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
-
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -35,7 +36,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            filename_clean ,file_ext = os.path.splitext(filename)
+            filename_clean, file_ext = os.path.splitext(filename)
             path_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path_file)
 
@@ -48,20 +49,20 @@ def upload_file():
             # After optimization is over we add the results to zipfile.
             zip_path = os.path.join(app.config['ZIPS_FOLDER'], "zip {}.zip".format(filename_clean))
 
-            with zipfile.ZipFile(zip_path,"w") as zip:
+            with zipfile.ZipFile(zip_path, "w") as zip:
                 zip.write(path_result)
                 zip.write(path_result + ".xls")
                 for file in os.listdir(path_images):
-                    zip.write(os.path.join(path_images,file))
+                    zip.write(os.path.join(path_images, file))
 
-            #TODO Cleanup
+            # TODO Cleanup
             return redirect(url_for('uploaded_file',
                                     filename=filename_clean))
         else:
             flash('Archivo inválido, debes subir un .xlsx o .xls')
             return redirect(request.url)
 
-    return render_template('index.html',error=None)
+    return render_template('index.html', error=None)
 
 
 @app.route('/optimized/<filename>')
