@@ -10,11 +10,10 @@ ALLOWED_EXTENSIONS = set(['xlsx', 'xls'])
 app = Flask(__name__)
 app.secret_key = '1298389172jiklaf83276'
 
-# TODO make this work with non root paths, they most likely have to be created by docker on build
-app.config['UPLOAD_FOLDER'] = './'
-app.config['RESULTS_FOLDER'] = './'
-app.config['IMAGES_FOLDER'] = './'
-app.config['ZIPS_FOLDER'] = './'
+app.config['UPLOAD_FOLDER'] = './temp/images/'
+app.config['RESULTS_FOLDER'] = './temp/results/'
+app.config['IMAGES_FOLDER'] = './temp/images/'
+app.config['ZIPS_FOLDER'] = './temp/zips/'
 
 
 def allowed_file(filename):
@@ -42,19 +41,22 @@ def upload_file():
             file.save(path_file)
 
             # now we call the optimization start and save the results on the respective folders.
-            path_result = os.path.join(app.config['RESULTS_FOLDER'], "resultado_{}".format(filename_clean))
-            path_images = os.path.join(app.config['IMAGES_FOLDER'], "imagenes_{}".format(filename_clean))
+            result_in_dir = "resultado_{}".format(filename_clean)
+            images_in_dir = "imagenes_{}".format(filename_clean)
+            zips_in_dir = "cubicacion_{}.zip".format(filename_clean)
+            path_result = os.path.join(app.config['RESULTS_FOLDER'], result_in_dir)
+            path_images = os.path.join(app.config['IMAGES_FOLDER'], images_in_dir)
             os.makedirs(path_images)
             start(path_file, path_result, path_images + "/")
 
             # After optimization is over we add the results to zipfile.
-            zip_path = os.path.join(app.config['ZIPS_FOLDER'], "cubicacion_{}.zip".format(filename_clean))
+            zip_path = os.path.join(app.config['ZIPS_FOLDER'], zips_in_dir)
 
             with zipfile.ZipFile(zip_path, "w") as zip:
-                zip.write(path_result)
-                zip.write(path_result + ".xls")
+                zip.write(path_result,result_in_dir)
+                zip.write(path_result + ".xls",result_in_dir + ".xls")
                 for file in os.listdir(path_images):
-                    zip.write(os.path.join(path_images, file))
+                    zip.write(os.path.join(path_images, file),os.path.join(images_in_dir, file))
 
             #we clean up intermediary files
             os.remove(path_result)
@@ -75,7 +77,7 @@ def upload_file():
 
 @app.route('/optimized/<filename>')
 def uploaded_file(filename):
-
+    #we cleanup zip after download, only works in linux systems
     @after_this_request
     def remove_zip(response):
         os.remove(os.path.join(app.config['ZIPS_FOLDER'],
