@@ -41,13 +41,13 @@ def upload_file():
             file.save(path_file)
 
             # now we call the optimization start and save the results on the respective folders.
-            path_result = os.path.join(app.config['RESULTS_FOLDER'], "result {}".format(filename_clean))
-            path_images = os.path.join(app.config['IMAGES_FOLDER'], "images {}".format(filename_clean))
+            path_result = os.path.join(app.config['RESULTS_FOLDER'], "result_{}".format(filename_clean))
+            path_images = os.path.join(app.config['IMAGES_FOLDER'], "images_{}".format(filename_clean))
             os.makedirs(path_images)
             start(path_file, path_result, path_images + "/")
 
             # After optimization is over we add the results to zipfile.
-            zip_path = os.path.join(app.config['ZIPS_FOLDER'], "zip {}.zip".format(filename_clean))
+            zip_path = os.path.join(app.config['ZIPS_FOLDER'], "zip_{}.zip".format(filename_clean))
 
             with zipfile.ZipFile(zip_path, "w") as zip:
                 zip.write(path_result)
