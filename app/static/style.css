@@ -45,3 +45,36 @@ h1 {
 .closebtn:hover {
     color: black;
 }
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    font-weight: 700;
+    background-color: white;
+    color: black;
+    border: 2px solid #70b9db; 
+    display: inline-block;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+    transition-duration: 0.4s;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: #70b9db; /* Green */
+    color: white;
+}
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}
