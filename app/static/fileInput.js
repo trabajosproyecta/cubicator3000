@@ -5,6 +5,7 @@ const updateFileDisplay = () => {
     const file = input.files
     if(file.length === 0) {
         preview.textContent = 'No has elegido ningún archivo';
+        document.querySelector('#cubicatebtn').style.display = 'none';
       } else {
           const text = preview.querySelector('h4')
           text.textContent = file[0].name
