@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Cubicador Proyecta!</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+</head>
+
+<body>
+<div class="mainbox">
+    <div class="title_text">
+        <h1>LogistiCubicador!</h1>
+
+        <p>Estimado logistijefe o logisticomisionado, esta aplicación permite
+            cubicar cualquier construcción de manera rápida y fácil, mediante un simple algoritmo de optimización. <br>
+
+            Para utilizar la herramienta sólo debes crear un excel con la descripción de los palos a usar y las medidas
+            de los cortes
+            lo subes con el botón de más abajo, luego das click en cubicar y sha esta! Para mas información sobre como
+            debe ser el excel
+            puedes descargar el manual y la planilla de ejemplo. El sistema entrega como resultado un archivo zip que
+            contiene lo siguiente: <br>
+        </p>
+        <ul>
+            <li>Archivo .txt con descripción de cortes y estimación de costos.</li>
+            <li>Planilla excel con resumen de maderas necesarias por construcción.</li>
+            <li>Carpeta con imagenes de los cortes listas para poner en el manual.</li>
+        </ul>
+        <p>
+            Si bien la idea original fue desarrollada por Jose Alamos en el año 100 A.C y la versión actual
+            por la comisión de logística de los trabajos curepto 2018, la intención es que sea usado todos los semestres
+            por quién sea que quiera usarlo, por lo que si tienes cualquier problema no dudes en escribirme a
+            <a href="mailto:afcadiz@uc.cl?Subject=Duda%20Cubicador" target="_top">afcadiz@uc.cl</a> y trataré de
+            ayudarte a la brevedad. <br>
+
+            Si eres motivado y quieres contribuir al desarrollo del sistema escríbeme o anda directamente al
+            <a href="https://github.com/ironcadiz/cubicator3000">repositorio</a> y juegatela con un fork y pull request.
+        </p>
+    </div>
+
+    <div class="excel_form">
+        <form method=post enctype=multipart/form-data>
+            <div class="row">
+                <div class="column">
+                    <p><input type=file name=file id="file" class="inputfile">
+                        <label for="file">Subir archivo</label>
+                </div>
+
+                <div class="column" id="preview">
+                    <h4>No has seleccionado ningún archivo</h4>
+                </div>
+            </div>
+            <script type="text/javascript" src="{{ url_for('static', filename='fileInput.js') }}"></script>
+            <input type=submit value=Cubicar! id=cubicatebtn>
+
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>
