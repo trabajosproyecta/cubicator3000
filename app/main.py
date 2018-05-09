@@ -1,6 +1,7 @@
 import os
 from shutil import rmtree
-from flask import Flask, request, redirect, url_for, send_from_directory, flash, render_template, after_this_request
+from flask import Flask, request, redirect, url_for, send_from_directory, \
+    flash, render_template, after_this_request
 from werkzeug.utils import secure_filename
 from cubicator import start
 import zipfile
@@ -40,12 +41,15 @@ def upload_file():
             path_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path_file)
 
-            # now we call the optimization start and save the results on the respective folders.
+            # now we call the optimization start and save the results on the
+            # respective folders.
             result_in_dir = "resultado_{}".format(filename_clean)
             images_in_dir = "imagenes_{}".format(filename_clean)
             zips_in_dir = "cubicacion_{}.zip".format(filename_clean)
-            path_result = os.path.join(app.config['RESULTS_FOLDER'], result_in_dir)
-            path_images = os.path.join(app.config['IMAGES_FOLDER'], images_in_dir)
+            path_result = os.path.join(
+                app.config['RESULTS_FOLDER'], result_in_dir)
+            path_images = os.path.join(
+                app.config['IMAGES_FOLDER'], images_in_dir)
             os.makedirs(path_images)
             start(path_file, path_result, path_images + "/")
 
@@ -53,18 +57,18 @@ def upload_file():
             zip_path = os.path.join(app.config['ZIPS_FOLDER'], zips_in_dir)
 
             with zipfile.ZipFile(zip_path, "w") as zip:
-                zip.write(path_result,result_in_dir)
-                zip.write(path_result + ".xls",result_in_dir + ".xls")
+                zip.write(path_result, result_in_dir)
+                zip.write(path_result + ".xls", result_in_dir + ".xls")
                 for file in os.listdir(path_images):
-                    zip.write(os.path.join(path_images, file),os.path.join(images_in_dir, file))
-
-            #we clean up intermediary files
+                    zip.write(
+                        os.path.join(path_images, file),
+                        os.path.join(images_in_dir, file)
+                    )
+            # we clean up intermediary files
             os.remove(path_result)
             os.remove(path_result + '.xls')
             rmtree(path_images)
             os.remove(path_file)
-
-
 
             return redirect(url_for('uploaded_file',
                                     filename=filename_clean))
@@ -77,7 +81,7 @@ def upload_file():
 
 @app.route('/optimized/<filename>')
 def uploaded_file(filename):
-    #we cleanup zip after download, only works in linux systems
+    # we cleanup zip after download, only works in linux systems
     @after_this_request
     def remove_zip(response):
         os.remove(os.path.join(app.config['ZIPS_FOLDER'],
