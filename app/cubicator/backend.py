@@ -1,6 +1,7 @@
 from .drawer import crear_imagen_palo
 from .excel_handler import get_excel, crear_excel
-from .optimizer import create_model, solve, os
+from .optimizer import create_model, solve
+import os
 from copy import deepcopy
 
 
@@ -86,7 +87,8 @@ def tointstr(numero):
             nums = nums[:largo - i] + "." + nums[largo - i:]
     return nums
 
-#TODO change input for file objects instead of string paths.
+
+# TODO change input for file objects instead of string paths.
 def start(input_file, output_file, image_dir):
     largos, precios, diccionario, listas_ordenadas = get_excel(input_file)
     lo_construcciones, lo_materiales = listas_ordenadas
@@ -112,8 +114,9 @@ def start(input_file, output_file, image_dir):
         sfinal += " ---- Total: $" + tointstr(total) + " ---- \n"
         sfinal += "*" * 60 + "\n\n\n"
 
-    i = 1
-    #TODO this code makes no sense if the output file isnt in the current working directory
+    # i = 1
+    # TODO this code makes no sense if the output file isnt in the current
+    # working directory
     nresult = output_file
     # while nresult in os.listdir():
     #     nresult = output_file[:-4] + " (" + str(i) + ")" + output_file[-4:]
@@ -122,7 +125,8 @@ def start(input_file, output_file, image_dir):
     try:
         with open(nresult, "w") as archivo:
             archivo.write(sfinal)
-    except FileNotFoundError:
+    # except FileNotFoundError:
+    except Exception:
         os.makedirs(os.path.dirname(nresult))
         with open(nresult, "w") as archivo:
             archivo.write(sfinal)

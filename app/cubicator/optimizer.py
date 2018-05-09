@@ -1,6 +1,7 @@
-from pulp import LpProblem, LpMinimize, LpVariable, LpInteger, lpSum, pulp
+from pulp import LpProblem, LpMinimize, LpVariable, LpInteger, lpSum
+# from pulp import pulp
 import numpy as np
-import os
+# import os
 
 
 def get_patterns(cq, maxl):
@@ -54,7 +55,7 @@ def create_model(cuts_quantity, maxl):
 
 
 def solve(model, patterns):
-    cwd = os.getcwd()
+    # cwd = os.getcwd()
     # extracted and renamed CBC solver binary
     # solverdir = 'cbc-2.7.5-win64\\bin\\cbc.exe'  # windows
     # solverdir = 'Cbc-2.4.0-linux-x86_64/bin/cbc'  # linux
