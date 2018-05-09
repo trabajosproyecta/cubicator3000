@@ -20,7 +20,7 @@ El manejo de errores no esta implementado.
 
 
 ### Desarrollo
-La instalación y desarrollo de la aplicación es mediante un contenedor de docker y docker-compose (basado en [esto](https://github.com/tiangolo/uwsgi-nginx-flask-docker)). Por lo que basta 
+La instalación y desarrollo de la aplicación es mediante un contenedor de [docker](https://docs.docker.com/install/) y [docker-compose](https://docs.docker.com/compose/install/) (basado en [esto](https://github.com/tiangolo/uwsgi-nginx-flask-docker)). Por lo que basta
 tener instaladas ambas herramientas para hacer funcionar todo. Para comenzar clonar el repositorio y dentro de la carpeta:
 
 ```bash
@@ -35,12 +35,12 @@ Y podrás ver la aplicación en localhost.
 
 ### Dependencias
 
-Las dependencias se manejan mediante docker y pip, por lo que para agregar una debes ponerla en el archivo 
+Las dependencias se manejan mediante docker y pip, por lo que para agregar una debes ponerla en el archivo
 `requirements.txt` dentro de la carpeta `app`.
 
 ### Diseño
 
-Dentro de la carpeta `app` se encuentra todo, `cubicator` corresponde al módulo de optimización, `main.py` es la 
+Dentro de la carpeta `app` se encuentra todo, `cubicator` corresponde al módulo de optimización, `main.py` es la
 aplicación flask y en `temp` se guardan los archivos temporales. El resto de las carpetas sigue las convenciones tradicionales
 de flask.
 
