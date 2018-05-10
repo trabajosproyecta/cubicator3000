@@ -1,1 +1,1 @@
-from .backend import start
+from .backend import start  # noqa

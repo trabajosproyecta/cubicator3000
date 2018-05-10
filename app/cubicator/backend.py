@@ -43,8 +43,8 @@ def string_results(nombre, optimum, cuts, precio):
     return s
 
 
-def optimize(cortes_cantidad, construccion, material, largos,
-             patrones_optimos, precios):
+def optimize(cortes_cantidad, construccion, material, lengths,
+             patrones_optimos, prices):
     """
     Retorna string con los cortes y el numero de palos que se usaron.
 
@@ -53,14 +53,10 @@ def optimize(cortes_cantidad, construccion, material, largos,
     material: str(material)
     """
     nombre = " -- " + construccion + " - " + material + " -- "
-    # print(nombre)
-    # print(cortes_cantidad)
-    # copy of cortes_cantidad
     cq = deepcopy(cortes_cantidad)
     cuts = list(map(lambda x: x[0], cortes_cantidad))
-    model, patterns = create_model(cq, largos[material])
+    model, patterns = create_model(cq, lengths[material])
     result = solve(model, patterns)
-    # print(result)
 
     # transformación de resultado para retrocompatibilidad
     optimum = [[result[x], x] for x in result]
@@ -74,7 +70,7 @@ def optimize(cortes_cantidad, construccion, material, largos,
         patrones_optimos[construccion] = {}
 
     patrones_optimos[construccion][material] = aa
-    sresults = string_results(nombre, optimum, cuts, precios[material])
+    sresults = string_results(nombre, optimum, cuts, prices[material])
 
     return sresults, sum([a for a, b in optimum])
 
@@ -89,23 +85,26 @@ def tointstr(numero):
 
 
 # TODO change input for file objects instead of string paths.
+# start(str, str, str)
 def start(input_file, output_file, image_dir):
-    largos, precios, diccionario, listas_ordenadas = get_excel(input_file)
-    lo_construcciones, lo_materiales = listas_ordenadas
+    """Recieves excel path as input_file, saves the optimization result in
+    directories output_file and image_dir.
+    """
+    lengths, prices, all_cuts, ordered_lists = get_excel(input_file)
+    ol_constructions, ol_boards = ordered_lists
 
     patrones_optimos = {}
 
     sfinal = ""
-    for construccion in diccionario:
-        # print("Optimizando " + construccion + "...")
+    for construccion in all_cuts:
         total = 0
         totalpalos = {}
-        for material in diccionario[construccion]:
-            sresults, n = optimize(diccionario[construccion][material],
-                                   construccion, material, largos,
-                                   patrones_optimos, precios)
+        for material in all_cuts[construccion]:
+            sresults, n = optimize(all_cuts[construccion][material],
+                                   construccion, material, lengths,
+                                   patrones_optimos, prices)
             sfinal += sresults + "\n\n"
-            total += n * precios[material]
+            total += n * prices[material]
             totalpalos[material] = n
         sfinal += "\n" + "*" * 60
         sfinal += "\nTOTAL " + construccion + ": \n"
@@ -114,40 +113,28 @@ def start(input_file, output_file, image_dir):
         sfinal += " ---- Total: $" + tointstr(total) + " ---- \n"
         sfinal += "*" * 60 + "\n\n\n"
 
-    # i = 1
     # TODO this code makes no sense if the output file isnt in the current
     # working directory
     nresult = output_file
-    # while nresult in os.listdir():
-    #     nresult = output_file[:-4] + " (" + str(i) + ")" + output_file[-4:]
-    #     i += 1
 
     try:
         with open(nresult, "w") as archivo:
             archivo.write(sfinal)
-    # except FileNotFoundError:
-    except Exception:
+    except FileNotFoundError:
         os.makedirs(os.path.dirname(nresult))
         with open(nresult, "w") as archivo:
             archivo.write(sfinal)
-
-    # print("Listo!! Resultados de la optimizacion guardados en " + nresult)
-    # print("Guardando imagenes...")
 
     for constru in patrones_optimos:
         for material in patrones_optimos[constru]:
             crear_imagen_palo(constru, material,
                               patrones_optimos[constru][material],
-                              largos[material], image_dir)
-
-    # print("Imagenes guardadas! Creando excel...")
+                              lengths[material], image_dir)
 
     cubicacion_por_proyecto = cubicar_por_proyecto(patrones_optimos)
     nexcelresult = nresult + ".xls"
     crear_excel(cubicacion_por_proyecto, nexcelresult,
-                lo_construcciones, lo_materiales)
-
-    # print("Listo! Excel guardado en " + nexcelresult)
+                ol_constructions, ol_boards)
 
 
 def cubicar_por_proyecto(patrones_optimos):

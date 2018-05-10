@@ -5,51 +5,56 @@ from functools import reduce
 
 def get_excel(nombre):
     book = xlrd.open_workbook(nombre)
-    sn = book.sheet_names()
+    sheet_names = book.sheet_names()  # ['Precios', 'Juego dos Torres', ...]
+    constructions = sheet_names[1:]
+    metadata = book.sheet_by_name(sheet_names[0])
 
-    construcciones = sn[1:]
-    lmateriales = []
-    metadata = book.sheet_by_name(sn[0])
+    boards_list = []  # ['Cuarton', '2x4 Bruto', ...]
+    board_initial_length = {}  # {'Cuarton': 320.0, '2x4 Bruto': 320.0, ...}
+    board_price = {}  # {'Cuarton': 4200.0, '2x4 Bruto': 3200.0, ...}
 
-    L_material = {}  # Diccionario {Tabla: Largo inicial}
-    precio_material = {}  # Diccionario {Tabla: precio}
-    for i in range(1, metadata.nrows):
-        lmateriales.append(metadata.cell(i, 0).value)
-        L_material[metadata.cell(i, 0).value] = metadata.cell(i, 1).value
-        precio_material[metadata.cell(i, 0).value] = metadata.cell(i, 2).value
+    for i in range(1, metadata.nrows):  # for each row:
+        # Retrive values
+        name = metadata.cell(i, 0).value
+        initial_length = metadata.cell(i, 1).value
+        price = metadata.cell(i, 2).value
 
-    ret = {}
+        # Add to objects
+        boards_list.append(name)
+        board_initial_length[name] = initial_length
+        board_price[name] = price
 
-    for constru in construcciones:
-        sheet = book.sheet_by_name(constru)
+    all_cuts = {}
+
+    for construction in constructions:
+        sheet = book.sheet_by_name(construction)
         if sheet.nrows <= 1:  # Si no hay filas en la hoja...
-            # print("Nada que optimizar en " + constru + "...")
             continue
 
-        materiales = {}
-        for i in range(1, sheet.nrows):
-            material_actual = sheet.cell(i, 1).value  # String unicode
-            corte_actual = sheet.cell(i, 2).value  # float
-            ncortes_actual = sheet.cell(i, 3).value  # float
-            if material_actual not in materiales:
-                materiales[material_actual] = {}
-            if corte_actual not in materiales[material_actual]:
-                materiales[material_actual][corte_actual] = 0
-            materiales[material_actual][corte_actual] += ncortes_actual
+        boards_cuts = {}
+        for i in range(1, sheet.nrows):  # For each row in this construction
+            current_board = sheet.cell(i, 1).value  # String unicode
+            current_cut = sheet.cell(i, 2).value  # float
+            current_cut_quantity = sheet.cell(i, 3).value  # float
 
-        ret[constru] = materiales
+            # Add this cut quantity to total cut quantites
+            if current_board not in boards_cuts:
+                boards_cuts[current_board] = {}
+            if current_cut not in boards_cuts[current_board]:
+                boards_cuts[current_board][current_cut] = 0
+            boards_cuts[current_board][current_cut] += current_cut_quantity
 
-    retorno = {}
+        all_cuts[construction] = boards_cuts
 
-    for constru in ret:
-        retorno[constru] = {}
-        for mater in ret[constru]:
-            retorno[constru][mater] = []
-            for corte in ret[constru][mater]:
-                retorno[constru][mater].append(
-                    [corte, int(ret[constru][mater][corte])])
+    for construction in all_cuts:
+        for board in all_cuts[construction]:
+            aux = []
+            for cut in all_cuts[construction][board]:
+                aux.append([cut, int(all_cuts[construction][board][cut])])
+            all_cuts[construction][board] = aux
 
-    return L_material, precio_material, retorno, (construcciones, lmateriales)
+    return board_initial_length, board_price, all_cuts, \
+        (constructions, boards_list)
 
 
 def crear_excel(cubicacion_por_proyecto, nombre, lo_con, lo_mat):

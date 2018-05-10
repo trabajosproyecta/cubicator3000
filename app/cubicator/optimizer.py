@@ -1,7 +1,5 @@
 from pulp import LpProblem, LpMinimize, LpVariable, LpInteger, lpSum
-# from pulp import pulp
 import numpy as np
-# import os
 
 
 def get_patterns(cq, maxl):
@@ -55,18 +53,7 @@ def create_model(cuts_quantity, maxl):
 
 
 def solve(model, patterns):
-    # cwd = os.getcwd()
-    # extracted and renamed CBC solver binary
-    # solverdir = 'cbc-2.7.5-win64\\bin\\cbc.exe'  # windows
-    # solverdir = 'Cbc-2.4.0-linux-x86_64/bin/cbc'  # linux
-    # solverdir = 'cbc/linux/64/cbc'  # Linux
-    # solverdir = os.path.join(cwd, solverdir)
-    # solver = pulp.COIN_CMD(path=solverdir)
-    # model.solve(solver)
     model.solve()
-    # print("Solving")
-    # print(LpStatus[model.status])
-    # model.solve()
     results = {}
     for x in model.variables():
         if x.varValue > 0:
